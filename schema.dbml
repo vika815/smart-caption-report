@@ -1,0 +1,19 @@
+// Smart Caption Generator - Simplified Database Schema
+
+Table users {
+  id varchar [primary key]
+  full_name varchar [not null]
+  email varchar [unique, not null]
+  password varchar [not null]
+  created_at timestamp [default: `now()`]
+}
+
+Table generated_captions {
+  id varchar [primary key]
+  user_id varchar [not null, ref: > users.id]
+  keywords text [not null]
+  mood varchar [not null]
+  platform varchar [not null]
+  result_data json [not null, note: 'Contains captions, hashtags, emojis']
+  created_at timestamp [default: `now()`]
+}
