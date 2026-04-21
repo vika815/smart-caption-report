@@ -254,9 +254,9 @@ export default function App() {
       setIsLoggedIn(true);
       setCurrentScreen('generator');
     } catch (error) {
-      console.error('Google backend auth error:', error);
-      const msg = error.response?.data?.message || 'Google sign-in failed. Please try again.';
-      Alert.alert('Google Sign-In Error', msg);
+      console.error('Google backend auth error:', error.response?.data || error.message);
+      const msg = error.response?.data?.message || 'The Backend server did not respond. Is it running?';
+      Alert.alert('Auth Error', msg);
     } finally {
       setIsLoading(false);
     }
@@ -350,6 +350,17 @@ export default function App() {
           icon="logo-google"
         />
 
+        <CustomButton
+          title="Guest Mode (Review Only)"
+          onPress={() => {
+            setUser({ fullName: 'Reviewer', email: 'guest@example.com' });
+            setIsLoggedIn(true);
+            setCurrentScreen('generator');
+          }}
+          variant="secondary"
+          icon="eye-outline"
+        />
+
         <TouchableOpacity onPress={() => setCurrentScreen('signup')}>
           <Text style={styles.linkText}>
             Don't have an account? <Text style={styles.linkTextBold}>Sign up</Text>
@@ -400,6 +411,17 @@ export default function App() {
           onPress={handleGoogleLogin}
           variant="secondary"
           icon="logo-google"
+        />
+
+        <CustomButton
+          title="Guest Mode (Review Only)"
+          onPress={() => {
+            setUser({ fullName: 'Reviewer', email: 'guest@example.com' });
+            setIsLoggedIn(true);
+            setCurrentScreen('generator');
+          }}
+          variant="secondary"
+          icon="eye-outline"
         />
 
         <TouchableOpacity onPress={() => setCurrentScreen('login')}>
